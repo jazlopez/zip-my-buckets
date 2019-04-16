@@ -2,8 +2,7 @@ import argparse
 import subprocess
 import tempfile
 import logging
-from utilsaws import aws_exec_endpoint
-from utilsnapshot import compress, extract, get_snapshot_filename
+import shlex
 
 logging.basicConfig(format="%(asctime)s [%(module)s - %(funcName)s:%(lineno)s] %(levelname)s: %(message)s", level=logging.INFO)
 
@@ -36,17 +35,9 @@ def archive(bucket=None,  **opts):
 
             logging.info("snapshot disk allocation: %s", temp_s3_backup_space)
 
-            aws_exec = ['aws']
-            aws_exec_opts = ['s3', 'cp', '--profile', profile, '--recursive', bucket, temp_s3_backup_space]
-            aws_exec_endpoint_url = aws_exec_endpoint(opts)
+            exec_cmd = "aws s3 cp --recursive --profile {profile} {bucket_name} {to_directory}".format(profile=profile, bucket_name=bucket, to_directory=temp_s3_backup_space)
 
-            if aws_exec_endpoint_url:
-                aws_exec.append(aws_exec_endpoint_url)
-
-            for aws_exec_opt in aws_exec_opts:
-                aws_exec.append(aws_exec_opt)
-
-            spawn = subprocess.run(aws_exec, timeout=timeout, stdout=subprocess.DEVNULL)
+            spawn = subprocess.run(shlex.split(exec_cmd), timeout=timeout, stdout=subprocess.DEVNULL)
 
             bucket_no_prefix = bucket.replace("://", "_")
 

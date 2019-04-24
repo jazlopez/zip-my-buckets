@@ -1,8 +1,13 @@
 # zip-my-buckets | S3 backup tool
-
---
+---
 
 S3 Backup and restore utility
+
+> Requires [Python >= 3.0](https://docs.python.org/3.0/whatsnew/3.0.html) and [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+
+
+
+
 
 ##### 1.1 GENERAL USAGE
 

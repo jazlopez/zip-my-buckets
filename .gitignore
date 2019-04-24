@@ -112,3 +112,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+/output_html/
+/.idea/
+/lib/
+/bin/
+/include/
+/man/
+pip-selfcheck.json

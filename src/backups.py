@@ -3,6 +3,7 @@
 # jaziel @ jlopez.mx
 # jlopez.mx
 
+import shlex
 import tempfile
 import logging
 
@@ -53,6 +54,14 @@ class Generator(object):
         """
         self._temp_directory = tempfile.TemporaryDirectory()
         logging.info("temporary directory used as swap space created at: %s", self.temp_directory)
+
+    def tokenize_command(self):
+
+        return shlex.split("aws s3 cp --recursive --profile {profile} {bucket_name} {to_directory}"\
+                           .format(profile=self._profile,bucket_name=self._bucket,to_directory=self._temp_directory))
+
+    def run_command(self):
+        pass
 
 
 if __name__ == '__main__':

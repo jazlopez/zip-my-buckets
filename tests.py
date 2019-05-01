@@ -50,6 +50,9 @@ class TestCaseBackupArguments(unittest.TestCase):
         with self.assertRaises(RuntimeError, msg="call make temporary function first"):
             logging.info("temp directory: %s", self.backups.temp_directory)
 
+    def test_tokenize_command(self):
+
+        self.assertNotEqual(len(self.backups.tokenize_command()), 0)
 
 if __name__ == '__main__':
     unittest.main()

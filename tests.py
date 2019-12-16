@@ -28,31 +28,45 @@ class TestCaseBackupArguments(unittest.TestCase):
         with self.assertRaises(RuntimeError, msg="bucket name should be defined"):
             logging.info("bucket name %s", self.backups.bucket)
 
+        logging.info('OK')
+
     def test_raise_exception_as_profile_name_should_be_defined(self):
         self.backups.profile = None
 
         with self.assertRaises(RuntimeError,  msg="profile name should be defined"):
             logging.info("profile name %s", self.backups.profile)
 
+        logging.info('OK')
+
     def test_bucket_name_is_declared_as_uri(self):
         self.assertRegex(self.backups.bucket, "^s3://", msg="bucket name should prefixed with s3://")
 
+        logging.info('OK')
+
     def test_profile_name_is_valid(self):
+
         self.assertIsNotNone(self.backups.profile)
+
+        logging.info('OK')
 
     def test_make_temporary_directory_should_not_throw_errors(self):
 
         self.backups.make_temporary_directory()
-        self.assertIsNotNone(self.backups.temp_directory)
+        self.assertIsNotNone(self.backups.temp_directory, msg="backups temporary directory should have be created")
+        logging.info('OK')
 
     def test_make_temporary_directory_should_be_called(self):
 
         with self.assertRaises(RuntimeError, msg="call make temporary function first"):
             logging.info("temp directory: %s", self.backups.temp_directory)
 
+        logging.info('OK')
+
     def test_tokenize_command(self):
 
         self.assertNotEqual(len(self.backups.tokenize_command()), 0)
+
+        logging.info('OK')
 
 if __name__ == '__main__':
     unittest.main()
